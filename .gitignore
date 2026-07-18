@@ -1,0 +1,11 @@
+# Mavenのビルド生成物
+target/
+
+# VS Codeの設定
+.vscode/
+
+# macOSの管理ファイル
+.DS_Store
+
+# env
+.env
