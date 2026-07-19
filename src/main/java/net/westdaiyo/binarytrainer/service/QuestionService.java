@@ -1,6 +1,8 @@
 package net.westdaiyo.binarytrainer.service;
 import net.westdaiyo.binarytrainer.model.ConversionType;
 import net.westdaiyo.binarytrainer.model.Question;
+
+import java.text.Normalizer;
 import java.util.Random;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +11,7 @@ public class QuestionService {
 
     private final Random random = new Random();
 
-    // model/ConversionType.java内で定義している全てのenumをcasew分けしているため、default不要
+    // model/ConversionType.java内で定義している全てのenumをcase分けしているため、default不要
     public Question createQuestion(ConversionType conversionType) {
         return switch (conversionType) {
             case DECIMAL_TO_BINARY -> createDecimalToBinaryQuestion();   
@@ -79,5 +81,22 @@ public class QuestionService {
         String answer = Integer.toBinaryString(number);
 
         return new Question(question, answer, ConversionType.HEX_TO_BINARY);
+    }
+
+    // ---------------------------------------------------------------------
+    // 全変換問題からランダムで出題(Controllerから利用するメソッドのため、publicにする)
+    public Question createRandomQuestion() {
+        ConversionType[] conversionTypes = ConversionType.values();
+        ConversionType randomConversionType = conversionTypes[random.nextInt(conversionTypes.length)];
+
+        return createQuestion(randomConversionType);
+    }
+
+    // 正誤判定
+    public boolean isCorrectAnswer(String userAnswer, String correctAnswer) {
+        // 全て半角で受付
+        String normalizedUserAnswer = Normalizer.normalize(userAnswer, Normalizer.Form.NFKC);
+        
+        return normalizedUserAnswer.trim().equalsIgnoreCase(correctAnswer.trim());
     }
 }

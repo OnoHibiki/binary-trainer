@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.Normalizer;
-
 
 @Controller
 public class QuestionController {
@@ -23,7 +21,8 @@ public class QuestionController {
     // ルートURLへのGETリクエスト処理　問題を生成してHTMLへ渡す
     @GetMapping("/")
     public String index(Model model) {
-        Question question = questionService.createQuestion(ConversionType.DECIMAL_TO_BINARY);
+        // 全６種類の変換処理問題からランダムで出題
+        Question question = questionService.createRandomQuestion();
         model.addAttribute("question", question);
 
         return "index";
@@ -37,9 +36,8 @@ public class QuestionController {
         @RequestParam("questionText") String questionText,
         @RequestParam("correctAnswer") String correctAnswer) {
         
-        //　正誤判定の処理（大文字小文字も厳格に.全角は半角にしてあげる）
-        userAnswer = Normalizer.normalize(userAnswer, Normalizer.Form.NFKC);
-        boolean isCorrect = userAnswer.trim().equals(correctAnswer.trim());
+        //　正誤判定の処理（大文字小文字どちらでもOK.全角は半角にしてあげる）
+        boolean isCorrect = questionService.isCorrectAnswer(userAnswer, correctAnswer);
         
 
         System.out.println("変換形式: " + conversionType.getDisplayName());
@@ -50,7 +48,5 @@ public class QuestionController {
 
         return "redirect:/";
     }
-
-    
     
 }
