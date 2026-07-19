@@ -16,7 +16,7 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    // ルートにアクセスした場合
+    // ルートURLへのGETリクエスト処理　問題を生成してHTMLへ渡す
     @GetMapping("/")
     public String index(Model model) {
         Question question = questionService.createQuestion(ConversionType.DECIMAL_TO_BINARY);
