@@ -1,5 +1,8 @@
 package net.westdaiyo.binarytrainer.controller;
 import org.springframework.stereotype.Controller;
+
+import net.westdaiyo.binarytrainer.model.ConversionType;
+import net.westdaiyo.binarytrainer.model.Question;
 import net.westdaiyo.binarytrainer.service.QuestionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -13,8 +16,12 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
+    // ルートにアクセスした場合
     @GetMapping("/")
     public String index(Model model) {
+        Question question = questionService.createQuestion(ConversionType.DECIMAL_TO_BINARY);
+        model.addAttribute("question", question);
+
         return "index";
     }
     
