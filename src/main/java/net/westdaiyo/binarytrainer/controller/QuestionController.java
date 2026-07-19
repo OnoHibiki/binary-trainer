@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.Normalizer;
 
 
 @Controller
@@ -32,14 +33,20 @@ public class QuestionController {
     @PostMapping("/check")
     public String checkAnswer(
         @RequestParam("userAnswer") String userAnswer,
-        @RequestParam("conversionType") String conversionType,
+        @RequestParam("conversionType") ConversionType conversionType,//displayNameを使うため,CoversionType型として受け取る
         @RequestParam("questionText") String questionText,
         @RequestParam("correctAnswer") String correctAnswer) {
         
-        System.out.println("変換形式: " + conversionType);
+        //　正誤判定の処理（大文字小文字も厳格に.全角は半角にしてあげる）
+        userAnswer = Normalizer.normalize(userAnswer, Normalizer.Form.NFKC);
+        boolean isCorrect = userAnswer.trim().equals(correctAnswer.trim());
+        
+
+        System.out.println("変換形式: " + conversionType.getDisplayName());
         System.out.println("問題: " + questionText);
         System.out.println("あなたの回答: " + userAnswer);
         System.out.println("正解: " + correctAnswer);
+        System.out.println(isCorrect ? "正解！！" : "不正解...");
 
         return "redirect:/";
     }
