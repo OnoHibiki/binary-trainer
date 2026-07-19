@@ -30,8 +30,16 @@ public class QuestionController {
 
     // 回答がPOSTで送られてきた時の処理　正誤を判定
     @PostMapping("/check")
-    public String checkAnswer(@RequestParam("userAnswer") String userAnswer) {
-        System.out.println(userAnswer);
+    public String checkAnswer(
+        @RequestParam("userAnswer") String userAnswer,
+        @RequestParam("conversionType") String conversionType,
+        @RequestParam("questionText") String questionText,
+        @RequestParam("correctAnswer") String correctAnswer) {
+        
+        System.out.println("変換形式: " + conversionType);
+        System.out.println("問題: " + questionText);
+        System.out.println("あなたの回答: " + userAnswer);
+        System.out.println("正解: " + correctAnswer);
 
         return "redirect:/";
     }

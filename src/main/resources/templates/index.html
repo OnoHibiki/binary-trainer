@@ -10,9 +10,10 @@
         <p th:text="${question.question}"></p>
         <form action="/check" method="post">
             <input type="text" name="userAnswer" placeholder="答えを入力">
+            <input type="hidden" name ="conversionType" th:value="${question.conversionType.displayName}">
             <input type="hidden" name="questionText" th:value="${question.question}">
-            <input type="hidden" name="currectAnswer" th:value="${question.answer}">
-            
+            <input type="hidden" name="correctAnswer" th:value="${question.answer}">
+
             <button type="submit">回答</button>
         </form>
     </body>
