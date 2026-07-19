@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>進数変換トレーニング</title>
+    </head>
+    <body>
+        <h1>進数変換をマスターして、最強のインフラエンジニアになろう！</h1>
+        <p th:text="${question.conversionType.displayName}"></p>
+        <p th:text="|問題： ${question.question}|"></p>
+        <form action="/check" method="post">
+            <input type="text" name="userAnswer" placeholder="答えを入力">
+            <input type="hidden" name ="conversionType" th:value="${question.conversionType}">
+            <input type="hidden" name="questionText" th:value="${question.question}">
+            <input type="hidden" name="correctAnswer" th:value="${question.answer}">
+
+            <button type="submit">回答</button>
+        </form>
+    </body>
+</html>

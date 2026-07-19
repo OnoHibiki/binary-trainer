@@ -1,12 +1,12 @@
 package net.westdaiyo.binarytrainer.model;
 
 public class Question {
-    private String question; //問題
-    private String answer;  //回答
-    private String conversionType; //変換モード（10→2や2→16など）
+    private final String question; //問題（2進数や16進数のために、String）
+    private final String answer;  //回答（2進数や16進数のために、String）
+    private final ConversionType conversionType; //変換モード（10→2や2→16など）
 
-    public Question(String question, String answer, String conversionType) {
-        this.question = question;
+    public Question(String question, String answer, ConversionType conversionType) {
+        this.question = question; 
         this.answer = answer;
         this.conversionType = conversionType;
     }
@@ -18,7 +18,7 @@ public class Question {
     public String getAnswer() {
         return answer;
     }
-    public String getConversionType() {
+    public ConversionType getConversionType() {
         return conversionType;
     }
 
