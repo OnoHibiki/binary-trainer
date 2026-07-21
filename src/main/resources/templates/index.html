@@ -17,7 +17,7 @@
         <div class="questionArea" th:if="${isCorrect == null}">
             <p th:text="${question.conversionType.displayName}"></p>
             <p th:text="|問題： ${question.question}|"></p>
-            <form action="/check" method="post">
+            <form th:action="@{/check}" method="post">
                 <input type="text" name="userAnswer" placeholder="答えを入力">
                 <input type="hidden" name="conversionType" th:value="${question.conversionType}">
                 <input type="hidden" name="questionText" th:value="${question.question}">
