@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 public class QuestionController {
@@ -34,7 +36,8 @@ public class QuestionController {
         @RequestParam("userAnswer") String userAnswer,
         @RequestParam("conversionType") ConversionType conversionType,//displayNameを使うため,CoversionType型として受け取る
         @RequestParam("questionText") String questionText,
-        @RequestParam("correctAnswer") String correctAnswer) {
+        @RequestParam("correctAnswer") String correctAnswer,
+        RedirectAttributes redirectAttributes) {
         
         //　正誤判定の処理（大文字小文字どちらでもOK.全角は半角にしてあげる）
         boolean isCorrect = questionService.isCorrectAnswer(userAnswer, correctAnswer);
@@ -45,7 +48,8 @@ public class QuestionController {
         System.out.println("あなたの回答: " + userAnswer);
         System.out.println("正解: " + correctAnswer);
         System.out.println(isCorrect ? "正解！！" : "不正解...");
-
+        
+        redirectAttributes.addFlashAttribute("isCorrect", isCorrect);
         return "redirect:/";
     }
     

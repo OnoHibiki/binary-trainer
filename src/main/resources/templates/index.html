@@ -6,6 +6,8 @@
     </head>
     <body>
         <h1>進数変換をマスターして、最強のインフラエンジニアになろう！</h1>
+        <p th:if="${isCorrect != null}" th:text="${isCorrect ? '正解！！' : '不正解...'}"></p>
+
         <p th:text="${question.conversionType.displayName}"></p>
         <p th:text="|問題： ${question.question}|"></p>
         <form action="/check" method="post">
