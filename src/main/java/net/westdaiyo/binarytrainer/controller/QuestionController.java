@@ -20,17 +20,18 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    // ルートURLへのGETリクエスト処理　問題を生成してHTMLへ渡す
+    // 通常アクセスでは問題を生成し、回答後のリダイレクトでは正誤結果だけを表示する
     @GetMapping("/")
     public String index(Model model) {
-        // 全６種類の変換処理問題からランダムで出題
-        Question question = questionService.createRandomQuestion();
-        model.addAttribute("question", question);
-
+        // 全６種類の変換処理問題からランダムで出題　（回答直後は新しい問題を生成しない）
+        if(!model.containsAttribute("isCorrect")){
+            Question question = questionService.createRandomQuestion();
+            model.addAttribute("question", question);
+        }
         return "index";
     }
 
-    // 回答がPOSTで送られてきた時の処理　正誤を判定
+    // 正誤を判定
     @PostMapping("/check")
     public String checkAnswer(
         @RequestParam("userAnswer") String userAnswer,
@@ -49,6 +50,7 @@ public class QuestionController {
         System.out.println("正解: " + correctAnswer);
         System.out.println(isCorrect ? "正解！！" : "不正解...");
         
+        // リダイレクト時に、答えた問題の正誤をHTML側に渡す処理　※isCorrectを入れて渡す
         redirectAttributes.addFlashAttribute("isCorrect", isCorrect);
         return "redirect:/";
     }

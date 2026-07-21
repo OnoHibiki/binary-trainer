@@ -6,17 +6,26 @@
     </head>
     <body>
         <h1>進数変換をマスターして、最強のインフラエンジニアになろう！</h1>
-        <p th:if="${isCorrect != null}" th:text="${isCorrect ? '正解！！' : '不正解...'}"></p>
 
-        <p th:text="${question.conversionType.displayName}"></p>
-        <p th:text="|問題： ${question.question}|"></p>
-        <form action="/check" method="post">
-            <input type="text" name="userAnswer" placeholder="答えを入力">
-            <input type="hidden" name ="conversionType" th:value="${question.conversionType}">
-            <input type="hidden" name="questionText" th:value="${question.question}">
-            <input type="hidden" name="correctAnswer" th:value="${question.answer}">
+        <!-- 回答履歴がある場合 -->
+        <div class="resultArea" th:if="${isCorrect != null}">
+            <p th:text="${isCorrect ? '正解！！' : '不正解...'}"></p>
+            <a th:href="@{/}">次の問題へ</a>
+        </div>
 
-            <button type="submit">回答</button>
-        </form>
+        <!-- 回答履歴がない場合 -->
+        <div class="questionArea" th:if="${isCorrect == null}">
+            <p th:text="${question.conversionType.displayName}"></p>
+            <p th:text="|問題： ${question.question}|"></p>
+            <form action="/check" method="post">
+                <input type="text" name="userAnswer" placeholder="答えを入力">
+                <input type="hidden" name="conversionType" th:value="${question.conversionType}">
+                <input type="hidden" name="questionText" th:value="${question.question}">
+                <input type="hidden" name="correctAnswer" th:value="${question.answer}">
+
+                <button type="submit">回答</button>
+            </form>
+        </div>
+
     </body>
 </html>
