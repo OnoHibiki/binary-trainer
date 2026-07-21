@@ -96,7 +96,13 @@ public class QuestionService {
     public boolean isCorrectAnswer(String userAnswer, String correctAnswer) {
         // 全て半角で受付
         String normalizedUserAnswer = Normalizer.normalize(userAnswer, Normalizer.Form.NFKC);
-        
-        return normalizedUserAnswer.trim().equalsIgnoreCase(correctAnswer.trim());
+        String normalizedCorrectAnswer = correctAnswer.trim();
+
+        // 答えが２進数になる場合、ユーザが1byte表記で回答してきても値が合っていれば正解にするための処理
+        // 処理的に重くないため、全変換タイプに処理適用
+        normalizedUserAnswer = normalizedUserAnswer.replaceFirst("^0+(?!$)", "");
+        normalizedCorrectAnswer = normalizedCorrectAnswer.replaceFirst("^0+(?!$)", "");
+
+        return normalizedUserAnswer.equalsIgnoreCase(normalizedCorrectAnswer);
     }
 }
