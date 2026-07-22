@@ -20,7 +20,7 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    // 通常アクセスでは問題を生成し、回答後のリダイレクトでは正誤結果だけを表示する
+    // ちょっと眠すぎるので寝ます。明日はTOPと問題で分ける
     @GetMapping("/")
     public String index(Model model) {
         // 全６種類の変換処理問題からランダムで出題　（回答直後は新しい問題を生成しない）
