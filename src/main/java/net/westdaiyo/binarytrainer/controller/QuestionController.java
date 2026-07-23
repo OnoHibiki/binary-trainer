@@ -20,16 +20,32 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    // ちょっと眠すぎるので寝ます。明日はTOPと問題で分ける
+    // @GetMapping("/")
+    // public String index(Model model) {
+    //     // 全６種類の変換処理問題からランダムで出題　（回答直後は新しい問題を生成しない）
+    //     if(!model.containsAttribute("isCorrect")){
+    //         Question question = questionService.createRandomQuestion();
+    //         model.addAttribute("question", question);
+    //     }
+    //     return "index";
+    // }
+
+    // TOP
     @GetMapping("/")
-    public String index(Model model) {
-        // 全６種類の変換処理問題からランダムで出題　（回答直後は新しい問題を生成しない）
-        if(!model.containsAttribute("isCorrect")){
-            Question question = questionService.createRandomQuestion();
-            model.addAttribute("question", question);
-        }
+    public String index() {
         return "index";
     }
+
+    // 問題画面
+    @GetMapping("/quiz")
+    public String quiz() {
+        return "quiz";
+    }
+    
+
+
+    
+
 
     // 正誤を判定
     @PostMapping("/check")
