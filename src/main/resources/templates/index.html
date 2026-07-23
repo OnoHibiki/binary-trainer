@@ -10,7 +10,52 @@
     <h1>進数変換トレーニング</h1>
     <p>TOP画面</p>
 
-    <a th:href="@{/quiz}">問題画面へ</a>
+    <form th:action="@{/quiz}" method="get">
+        <div class="conversionTypeArea">
+            <label for="conversionType">
+                問題形式
+            </label>
+            <select name="conversionType" id="conversionType">
+                <option value="RANDOM">
+                    ランダム
+                </option>
+                <option value="DECIMAL_TO_BINARY">
+                    10進数→2進数
+                </option>
+                <option value="BINARY_TO_DECIMAL">
+                    2進数→10進数
+                </option>
+                <option value="DECIMAL_TO_HEX">
+                    10進数→16進数
+                </option>
+                <option value="HEX_TO_DECIMAL">
+                    16進数→10進数
+                </option>        
+                <option value="BINARY_TO_HEX">
+                    2進数→16進数
+                </option>
+                <option value="HEX_TO_BINARY">
+                    16進数→2進数
+                </option>
+            </select>
+        </div>
+
+        <div class="quizCount">
+            <label for="quizCount">
+                問題数
+            </label>
+
+            <select name="quizCount" id="quizCount">
+                <option value="quizCount_10">10問</option>
+                <option value="quizCount_20">20問</option>
+                <option value="quizCount_30">30問</option>
+            </select>
+        </div>
+
+        <button type="submit">
+            れっつごー！！！
+        </button>
+    </form>
 </body>
 
 </html>
