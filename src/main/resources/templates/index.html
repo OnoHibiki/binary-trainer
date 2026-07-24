@@ -11,34 +11,43 @@
     <p>TOP画面</p>
 
     <form th:action="@{/quiz}" method="get">
-        <div class="conversionTypeArea">
-            <label for="conversionType">
-                問題形式
-            </label>
-            <select name="conversionType" id="conversionType">
-                <option value="RANDOM">
-                    ランダム
-                </option>
-                <option value="DECIMAL_TO_BINARY">
+        <fieldset class="conversionTypeArea">
+            <legend>
+                問題形式(複数選択可能)
+            </legend>
+
+            <div class="conversionTypeChoiceCheckBoxArea">
+                <input type="checkbox" name="conversionTypes" id="decimalToBinary" value="DECIMAL_TO_BINARY">
+                <label for="decimalToBinary">
                     10進数→2進数
-                </option>
-                <option value="BINARY_TO_DECIMAL">
+                </label>
+
+                <input type="checkbox" name="conversionTypes" id="binaryToDecimal" value="BINARY_TO_DECIMAL">
+                <label for="binaryToDecimal">   
                     2進数→10進数
-                </option>
-                <option value="DECIMAL_TO_HEX">
+                </label> 
+
+                <input type="checkbox" name="conversionTypes" id="decimalToHex" value="DECIMAL_TO_HEX">
+                <label for="decimalToHex">
                     10進数→16進数
-                </option>
-                <option value="HEX_TO_DECIMAL">
+                </label>
+                
+                <input type="checkbox" name="conversionTypes" id="hexToDecimal" value="HEX_TO_DECIMAL">
+                <label for="hexToDecimal">
                     16進数→10進数
-                </option>        
-                <option value="BINARY_TO_HEX">
+                </label>
+
+                <input type="checkbox" name="conversionTypes" id="binaryToHex" value="BINARY_TO_HEX">
+                <label for="binaryToHex">    
                     2進数→16進数
-                </option>
-                <option value="HEX_TO_BINARY">
+                </label>
+
+                <input type="checkbox" name="conversionTypes" id="hexToBinary" value="HEX_TO_BINARY">
+                <label for="hexToBinary">
                     16進数→2進数
-                </option>
-            </select>
-        </div>
+                </label>
+            </div>
+        </fieldset>
 
         <div class="quizCount">
             <label for="quizCount">
